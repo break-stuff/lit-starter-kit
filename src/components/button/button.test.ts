@@ -5,7 +5,9 @@ import { MyButton } from './index.js';
 describe('MyButton', () => {
   describe('accessibility', () => {
     it('default is accessible', async () => {
-      const el = await fixture<MyButton>(html`<my-button>My Button</my-button>`);
+      const el = await fixture<MyButton>(
+        html`<my-button>My Button</my-button>`,
+      );
       await expect(el).to.be.accessible();
     });
 
@@ -19,7 +21,9 @@ describe('MyButton', () => {
     });
 
     it('disabled is accessible', async () => {
-      const el = await fixture<MyButton>(html`<my-button disabled>My Button</my-button>`);
+      const el = await fixture<MyButton>(
+        html`<my-button disabled>My Button</my-button>`,
+      );
       const button = el.shadowRoot?.querySelector('button');
 
       await expect(el).to.be.accessible();

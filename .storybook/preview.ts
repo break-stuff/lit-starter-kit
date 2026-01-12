@@ -1,19 +1,19 @@
-import { setCustomElementsManifest } from '@storybook/web-components';
+import { setCustomElementsManifest } from '@storybook/web-components-vite';
 import customElements from '../custom-elements.json';
 import packageJson from '../package.json';
-import { setWcStorybookHelpersConfig } from 'wc-storybook-helpers';
-import { withActions } from '@storybook/addon-actions/decorator';
+import { setStorybookHelpersConfig } from '@wc-toolkit/storybook-helpers';
+import { withActions } from 'storybook/actions/decorator';
 import { setWcDoxConfig } from 'wc-dox';
 import './code-bubble-setup.js';
 import './styles.css';
 import '../public/html/index.js';
 
-import type { Preview } from '@storybook/web-components';
+import type { Preview } from '@storybook/web-components-vite';
 
 setCustomElementsManifest(customElements);
 
 // This adds additional features to storybook - https://www.npmjs.com/package/wc-storybook-helpers
-setWcStorybookHelpersConfig({ typeRef: 'expandedType' });
+setStorybookHelpersConfig({});
 
 // This configures the documentation for the API documentation - https://www.npmjs.com/package/wc-dox
 setWcDoxConfig(customElements, {
@@ -23,13 +23,13 @@ setWcDoxConfig(customElements, {
       {
         label: 'HTML',
         lang: 'html',
-        importTemplate: (tagName) =>
+        importTemplate: tagName =>
           `<script type="module" src="https://cdn.jsdelivr.net/npm/${packageJson.name}/cdn/components/${tagName}/index.js"></script>`,
       },
       {
         label: 'NPM',
         lang: 'js',
-        importTemplate: (tagName) =>
+        importTemplate: tagName =>
           `import '${packageJson.name}/dist/components/${tagName}/index.js';`,
       },
       {
@@ -41,7 +41,6 @@ setWcDoxConfig(customElements, {
     ],
   },
 });
-
 
 const preview: Preview = {
   parameters: {

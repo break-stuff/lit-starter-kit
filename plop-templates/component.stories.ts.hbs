@@ -1,8 +1,8 @@
 import { StoryObj } from '@storybook/web-components';
-import { getWcStorybookHelpers } from 'wc-storybook-helpers';
+import { getStorybookHelpers } from '@wc-toolkit/storybook-helpers';
 import type { {{pascalCase tagName}} } from './index.js';
 
-const { args, argTypes, events, template } = getWcStorybookHelpers('{{kebabCase tagName}}');
+const { args, argTypes, events, template } = getStorybookHelpers('{{kebabCase tagName}}');
 
 export default {
   title: 'Components/{{pascalCase name}}',
@@ -15,7 +15,6 @@ export default {
     },
   },
 };
-
 
 type Story = StoryObj<{{pascalCase tagName}} & typeof args>;
 

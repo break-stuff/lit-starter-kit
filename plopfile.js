@@ -19,8 +19,7 @@ export default function (plop) {
       {
         type: 'input',
         name: 'prefix',
-        message:
-          'What is the prefix for your component? (e.g. my)',
+        message: 'What is the prefix for your component? (e.g. my)',
         default: '',
       },
     ],

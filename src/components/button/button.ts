@@ -8,11 +8,11 @@ import styles from './button.styles.js';
  * @tag my-button
  *
  * @csspart control - The button element
- * 
+ *
  * @cssproperty [--button-bg-color=#f0f0f0] - The background color of the button
  * @cssproperty [--button-fg-color=#333] - The text color of the button
  * @cssproperty [--button-border-color=transparent] - The border color of the button
- * 
+ *
  * @slot - The main content for the button
  *
  */

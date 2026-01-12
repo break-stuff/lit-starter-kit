@@ -3,3 +3,21 @@ import { {{pascalCase tagName}} } from './{{kebabCase name}}.js';
 export type * from './{{kebabCase name}}.js';
 
 customElements.define('{{kebabCase tagName}}', {{pascalCase tagName}});
+
+declare global {
+  /**
+   * adds component custom elements to the global HTML element map
+   * no other changes need to be made here
+   */
+  interface HTMLElementTagNameMap {
+    '{{kebabCase tagName}}': {{pascalCase tagName}};
+  }
+  
+  /** 
+   * adds component custom events to the global JS event map
+   * add new custom events here
+   */
+  interface GlobalEventHandlersEventMap {
+    'custom-event': CustomEvent;
+  }
+}

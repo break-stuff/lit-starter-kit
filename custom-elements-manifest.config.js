@@ -1,14 +1,13 @@
-import { getTsProgram, expandTypesPlugin } from 'cem-plugin-expanded-types';
-import { customElementReactWrapperPlugin } from 'custom-element-react-wrappers';
-import { customElementJetBrainsPlugin } from 'custom-element-jet-brains-integration';
-import { customElementSolidJsPlugin } from 'custom-element-solidjs-integration';
-import { customElementJsxPlugin } from 'custom-element-jsx-integration';
+import { getTsProgram, typeParserPlugin } from '@wc-toolkit/type-parser';
+import { reactWrapperPlugin } from '@wc-toolkit/react-wrappers';
+import { jsxTypesPlugin } from '@wc-toolkit/jsx-types';
 import { customElementVuejsPlugin } from 'custom-element-vuejs-integration';
 import { customElementSveltePlugin } from 'custom-element-svelte-integration';
 import { cemInheritancePlugin } from '@wc-toolkit/cem-inheritance';
-import { customElementLazyLoaderPlugin } from 'custom-element-lazy-loader';
-import { customJSDocTagsPlugin } from 'cem-plugin-custom-jsdoc-tags';
+import { jsDocTagsPlugin } from '@wc-toolkit/jsdoc-tags';
+import { lazyLoaderPlugin } from '@wc-toolkit/lazy-loader';
 import { cemDeprecatorPlugin } from 'custom-elements-manifest-deprecator';
+import { cemSorterPlugin } from '@wc-toolkit/cem-sorter';
 
 export default {
   /** Globs to analyze */
@@ -19,24 +18,18 @@ export default {
   litelement: true,
   /** Provide custom plugins */
   plugins: [
-    expandTypesPlugin(),
+    typeParserPlugin(),
     cemInheritancePlugin(),
     cemDeprecatorPlugin(),
 
-    customElementJetBrainsPlugin(),
-    customElementReactWrapperPlugin({
+    reactWrapperPlugin({
       outdir: 'react',
       modulePath: (_, tagName) =>
         `../dist/components/${tagName.replace('my-', '')}/index.js`,
     }),
-    customElementSolidJsPlugin({
+    jsxTypesPlugin({
       outdir: 'types',
-      fileName: 'custom-element-solidjs.d.ts',
-      modulePath: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
-    }),
-    customElementJsxPlugin({
-      outdir: 'types',
+      stronglyTypedEvents: true,
       modulePath: (_, tagName) =>
         `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
     }),
@@ -52,19 +45,21 @@ export default {
       modulePath: (_, tagName) =>
         `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
     }),
-    customElementLazyLoaderPlugin({
+    lazyLoaderPlugin({
       outdir: 'cdn',
       importPathTemplate: (_, tagName) =>
         `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
     }),
 
-    customJSDocTagsPlugin({
+    jsDocTagsPlugin({
       tags: {
         status: {},
         since: {},
         dependency: { mappedName: 'dependencies', isArray: true },
       },
     }),
+
+    cemSorterPlugin(),
   ],
 
   overrideModuleCreation: ({ ts, globs }) => {
