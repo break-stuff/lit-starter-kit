@@ -12,12 +12,11 @@ This repository is designed to be a "batteries included" repo, so you can hit th
 - ✅ NPM build (in `/dist`)
 - ✅ Testing
 - ✅ Documentation
-- ✅ [React wrappers](https://www.npmjs.com/-package/custom-element-react-wrappers) (in - `/react`)
-- ✅ [JSX integration](https://www.npmjs.com/-package/custom-element-jsx-integration) - (in `/types`)
+- ✅ [React wrappers](https://wc-toolkit.com/integrations/react/) (in - `/react`)
+- ✅ [JSX integration](https://wc-toolkit.com/integrations/jsx/) - (in `/types`)
 - ✅ [Vue.js integration](https://www.npmjs.-com/package/-custom-element-vuejs-integration) (in `/- types`)
 - ✅ [Svelte integration](https://www.npmjs.-com/package/-custom-element-svelte-integration) (in `/- types`)
-- ✅ [SolidJS integration](https://www.npmjs.-com/package/-custom-element-solidjs-integration) (in `/- types`)
-- ✅ [HTML linter](https://www.npmjs.com/package/eslint-plugin-custom-element) (in `/eslint`)
+- ✅ [Linter](https://wc-toolkit.com/integrations/wctools/) (in `/wc.config.js`)
 
 ## Getting Started
 
