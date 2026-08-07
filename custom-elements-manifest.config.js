@@ -9,6 +9,9 @@ import { lazyLoaderPlugin } from '@wc-toolkit/lazy-loader';
 import { cemDeprecatorPlugin } from 'custom-elements-manifest-deprecator';
 import { cemSorterPlugin } from '@wc-toolkit/cem-sorter';
 
+// Strip out custom prefixes.
+const distComponentName = (tagName) => tagName.replace(/^[^-]+-/, '');
+
 export default {
   /** Globs to analyze */
   globs: ['src/components/**/*.ts'],
@@ -25,30 +28,30 @@ export default {
     reactWrapperPlugin({
       outdir: 'react',
       modulePath: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/index.js`,
+        `../dist/components/${distComponentName(tagName)}/index.js`,
     }),
     jsxTypesPlugin({
       outdir: 'types',
       stronglyTypedEvents: true,
       modulePath: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+        `../dist/components/${distComponentName(tagName)}/${distComponentName(tagName)}.js`,
     }),
     customElementVuejsPlugin({
       outdir: 'types',
       fileName: 'custom-element-vuejs.d.ts',
       modulePath: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+        `../dist/components/${distComponentName(tagName)}/${distComponentName(tagName)}.js`,
     }),
     customElementSveltePlugin({
       outdir: 'types',
       fileName: 'custom-element-svelte.d.ts',
       modulePath: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+        `../dist/components/${distComponentName(tagName)}/${distComponentName(tagName)}.js`,
     }),
     lazyLoaderPlugin({
       outdir: 'cdn',
       importPathTemplate: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+        `../dist/components/${distComponentName(tagName)}/${distComponentName(tagName)}.js`,
     }),
 
     jsDocTagsPlugin({

@@ -6,7 +6,7 @@ import type { {{pascalCase tagName}} } from './index.js';
 const { args, argTypes, events, template } = getStorybookHelpers('{{kebabCase tagName}}');
 
 export default {
-  title: 'Components/{{pascalCase name}}',
+  title: 'Components/{{dashToTitle name}}',
   component: '{{kebabCase tagName}}',
   args,
   argTypes,

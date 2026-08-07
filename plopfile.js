@@ -24,10 +24,17 @@ export default function (plop) {
       },
     ],
     actions: function (data) {
-      const basename = data?.name;
+      // Normalize input to kebab-case so camelCase or PascalCase becomes valid kebab-case
+      const originalName = data?.name || '';
+      const basename = plop.getHelper('kebabCase')(originalName);
+
+      // Use the sanitized name everywhere the templates expect `name`
+      data.name = basename;
+
+      // Validate the sanitized kebab-case name
       if (
-        // Must only contain alphanumeric characters and dashes
-        !/[a-z0-9-]+/.test(basename) ||
+        // Must only contain lowercase alphanumeric characters and dashes
+        !/^[a-z0-9-]+$/.test(basename) ||
         // Must start with a letter
         !/^[a-z]/.test(basename) ||
         // Must not end in a dash
@@ -41,6 +48,7 @@ export default function (plop) {
 
       const BASE_PATH = `src/components/{{kebabCase name}}`;
 
+      // Ensure tagName uses the sanitized kebab-case name
       data.tagName = data?.prefix ? `${data.prefix}-${data.name}` : data.name;
 
       return [

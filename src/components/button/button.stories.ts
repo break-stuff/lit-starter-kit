@@ -29,5 +29,6 @@ export const Default: Story = {
   render: args => html`${template(args)}`,
   args: {
     'default-slot': 'My Button',
+    'control-part': '',
   },
 };
