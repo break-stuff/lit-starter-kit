@@ -1,7 +1,7 @@
 import { getTsProgram, typeParserPlugin } from '@wc-toolkit/type-parser';
 import { reactWrapperPlugin } from '@wc-toolkit/react-wrappers';
 import { jsxTypesPlugin } from '@wc-toolkit/jsx-types';
-import { customElementVuejsPlugin } from 'custom-element-vuejs-integration';
+import { vuejsTypesPlugin } from "@wc-toolkit/vuejs-types";
 import { customElementSveltePlugin } from 'custom-element-svelte-integration';
 import { cemInheritancePlugin } from '@wc-toolkit/cem-inheritance';
 import { jsDocTagsPlugin } from '@wc-toolkit/jsdoc-tags';
@@ -33,7 +33,7 @@ export default {
       modulePath: (_, tagName) =>
         `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
     }),
-    customElementVuejsPlugin({
+    vuejsTypesPlugin({
       outdir: 'types',
       fileName: 'custom-element-vuejs.d.ts',
       modulePath: (_, tagName) =>
