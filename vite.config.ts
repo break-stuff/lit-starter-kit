@@ -1,7 +1,7 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { globSync } from 'glob';
-import { defineConfig, UserConfigExport } from 'vite';
+import { BuildEnvironmentOptions, defineConfig, UserConfigExport } from 'vite';
 import dts from 'vite-plugin-dts';
 import { readFileSync, writeFileSync } from 'fs';
 import summary from 'rollup-plugin-summary';
@@ -60,7 +60,7 @@ const reactConfig: UserConfigExport = defineConfig({
     rollupOptions: {
       external: ['react', 'react-dom'],
       output: {
-        inlineDynamicImports: true,
+        codeSplitting: false,
       },
       onwarn(warning, warn) {
         if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
@@ -102,6 +102,31 @@ const reactConfig: UserConfigExport = defineConfig({
   ],
 });
 
+/**
+ * Vite omits `preserveEntrySignatures` from the public `rollupOptions` type but
+ * still forwards it to Rolldown, so widen the type to set it.
+ */
+type CdnRollupOptions = NonNullable<
+  BuildEnvironmentOptions['rollupOptions']
+> & {
+  preserveEntrySignatures?:
+    false | 'strict' | 'allow-extension' | 'exports-only';
+};
+
+const cdnRollupOptions: CdnRollupOptions = {
+  // Vite defaults library builds to 'strict'. Under Rolldown that makes every
+  // entry a facade re-exporting a single hashed chunk that holds all the
+  // component code, so each component costs an extra request and its file name
+  // changes on every build. 'allow-extension' lets a component's code live in
+  // its own entry file, which is what consumers load from the CDN.
+  preserveEntrySignatures: 'allow-extension',
+  output: {
+    // Preserve directory structure
+    entryFileNames: '[name].js',
+    chunkFileNames: 'shared/[name]-[hash].js',
+  },
+};
+
 // CDN individual components config
 const cdnConfig = defineConfig({
   publicDir: false,
@@ -113,13 +138,7 @@ const cdnConfig = defineConfig({
       entry: componentEntries,
       formats: ['es'],
     },
-    rollupOptions: {
-      output: {
-        // Preserve directory structure
-        entryFileNames: '[name].js',
-        chunkFileNames: 'shared/[name]-[hash].js',
-      },
-    },
+    rollupOptions: cdnRollupOptions,
   },
   plugins: [dts(), summary()],
 });

@@ -64,6 +64,7 @@ npm run dev
 ```
 
 This command will:
+
 - Build your components
 - Watch for changes and rebuild automatically
 - Start Storybook on http://localhost:6006
@@ -77,6 +78,7 @@ npm run new
 ```
 
 This will scaffold:
+
 - Component TypeScript file
 - Styles file
 - Test file
@@ -110,6 +112,7 @@ npm run build
 ```
 
 This generates:
+
 - **`/dist`** - NPM package distribution files
 - **`/cdn`** - CDN-ready bundles for direct browser usage
 - **`/react`** - React wrapper components
@@ -157,8 +160,10 @@ import 'your-package-name';
 
 // Or import specific components
 import 'your-package-name/components/button';
+```
 
-// Use in your HTML
+```html
+<!-- Use in your HTML -->
 <my-button variant="primary">Click Me</my-button>
 ```
 
@@ -195,6 +200,7 @@ Framework-specific type integrations are provided in the `/types` directory for 
 Before publishing, update your package details:
 
 1. **Update package.json:**
+
    ```json
    {
      "name": "@your-scope/your-package-name",
@@ -209,12 +215,14 @@ Before publishing, update your package details:
    ```
 
 2. **Build and publish:**
+
    ```bash
    npm run build
    npm publish
    ```
 
    Or use the deploy script:
+
    ```bash
    npm run deploy
    ```
@@ -261,6 +269,7 @@ npm run build-storybook
 ```
 
 This creates a static site in `storybook-static/` that can be deployed to:
+
 - GitHub Pages
 - Netlify
 - Vercel
@@ -287,6 +296,7 @@ This creates a static site in `storybook-static/` that can be deployed to:
 ## Contributing
 
 Contributions are welcome! This project uses:
+
 - **Husky** for git hooks
 - **lint-staged** for pre-commit linting
 - **Prettier** for code formatting

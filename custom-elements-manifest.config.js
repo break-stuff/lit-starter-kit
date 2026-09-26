@@ -1,7 +1,7 @@
 import { getTsProgram, typeParserPlugin } from '@wc-toolkit/type-parser';
 import { reactWrapperPlugin } from '@wc-toolkit/react-wrappers';
 import { jsxTypesPlugin } from '@wc-toolkit/jsx-types';
-import { vuejsTypesPlugin } from "@wc-toolkit/vuejs-types";
+import { vuejsTypesPlugin } from '@wc-toolkit/vuejs-types';
 import { customElementSveltePlugin } from 'custom-element-svelte-integration';
 import { cemInheritancePlugin } from '@wc-toolkit/cem-inheritance';
 import { jsDocTagsPlugin } from '@wc-toolkit/jsdoc-tags';
@@ -10,7 +10,7 @@ import { cemDeprecatorPlugin } from 'custom-elements-manifest-deprecator';
 import { cemSorterPlugin } from '@wc-toolkit/cem-sorter';
 
 // Strip out custom prefixes.
-const distComponentName = (tagName) => tagName.replace(/^[^-]+-/, '');
+const distComponentName = tagName => tagName.replace(/^[^-]+-/, '');
 
 export default {
   /** Globs to analyze */
